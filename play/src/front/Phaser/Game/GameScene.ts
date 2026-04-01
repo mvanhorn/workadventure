@@ -1914,8 +1914,6 @@ export class GameScene extends DirtyScene {
                 this.tryOpenMapEditorWithToolEditorParameter();
 
                 playersStore.connectToRoomConnection(this.connection);
-                userIsAdminStore.set(this.connection.hasTag("admin"));
-                userIsEditorStore.set(this.connection.hasTag("editor"));
 
                 // The userJoinedMessageStream stream is completed in the RoomConnection. No need to unsubscribe.
                 //eslint-disable-next-line rxjs/no-ignored-subscription, svelte/no-ignored-unsubscribe
@@ -2431,6 +2429,9 @@ export class GameScene extends DirtyScene {
                 this.connection.getAllTags()
             )
         );
+
+        userIsAdminStore.set(this.connection.hasTag("admin"));
+        userIsEditorStore.set(this.connection.hasTag("editor"));
 
         this.subscribeToStores();
 
