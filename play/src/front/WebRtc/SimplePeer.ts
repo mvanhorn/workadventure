@@ -11,6 +11,7 @@ import { analyticsClient } from "../Administration/AnalyticsClient";
 import type { SimplePeerConnectionInterface, StreamableSubjects } from "../Space/SpacePeerManager/SpacePeerManager";
 import type { SpaceInterface, SpaceUserExtended } from "../Space/SpaceInterface";
 import { localStreamStoreForPublishing } from "../Stores/MediaStore";
+import { createStableStreamStore } from "../Stores/StableStreamStore";
 import { RetryWithBackoff } from "../Utils/RetryWithBackoff";
 import { warningMessageStore } from "../Stores/ErrorStore";
 import LL from "../../i18n/i18n-svelte";
@@ -65,7 +66,7 @@ export class SimplePeer implements SimplePeerConnectionInterface {
         private _screenSharingLocalStreamStore = screenSharingLocalStreamStore,
         private _analyticsClient = analyticsClient,
         private _customWebRTCLogger = customWebRTCLogger,
-        private _localStreamStore = localStreamStoreForPublishing
+        private _localStreamStore = createStableStreamStore(localStreamStoreForPublishing)
     ) {
         // Initialize retry manager with 30 attempts, backoff up to 15 seconds
         this.retryManager = new RetryWithBackoff({

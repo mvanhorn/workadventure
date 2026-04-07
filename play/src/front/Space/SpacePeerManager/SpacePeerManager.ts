@@ -9,7 +9,7 @@ import { get } from "svelte/store";
 import { localUserStore } from "../../Connection/LocalUserStore";
 import type { SpaceInterface } from "../SpaceInterface";
 import type { LocalStreamStoreValue } from "../../Stores/MediaStore";
-import { requestedCameraState, requestedMicrophoneState } from "../../Stores/MediaStore";
+import { requestedMicrophoneState, synchronizedCameraStateStore } from "../../Stores/MediaStore";
 import { recordingStore } from "../../Stores/RecordingStore";
 import { screenSharingLocalStreamStore } from "../../Stores/ScreenSharingStore";
 import { nbSoundPlayedInBubbleStore } from "../../Stores/ApparentMediaContraintStore";
@@ -142,7 +142,7 @@ export class SpacePeerManager {
         private space: SpaceInterface,
         blockedUsersStore: Readable<Set<string>>,
         private microphoneStateStore: Readable<boolean> = requestedMicrophoneState,
-        private cameraStateStore: Readable<boolean> = requestedCameraState,
+        private cameraStateStore: Readable<boolean> = synchronizedCameraStateStore,
         private screenSharingStateStore: Readable<LocalStreamStoreValue> = screenSharingLocalStreamStore,
         _bindMuteEventsToSpace: (space: SpaceInterface) => void = bindMuteEventsToSpace,
         private _localUserStore = localUserStore,
